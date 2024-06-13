@@ -152,9 +152,9 @@ ob_start();
                     echo <<< userForm
                     <div class="row">
                         <div class="col-3">
-                            <p>Edytuj informacje o firmie</p>
+                            <p>Edytuj informacje o użytkowniku</p>
                             <form action="PanelAdmina.php" method="POST">
-                                <input type="number" value="$row->user_id" name="userId" hidden>
+                                <input type="number" value="$row->user_id" name="userId">
                                 <p>Login <input type="text" value="$row->user_login" name="userLogin" required></p>
                                 <p>Imię <input type="text" value="$row->firstname" name="firstname" required></p>
                                 <p>Nazwisko <input type="text" value="$row->surname" name="surname" required></p>
@@ -171,8 +171,9 @@ ob_start();
                                 <p>Certyfikaty<br>
                                 <select size="2" class="col-3">
                     userForm;
-                    $userId = $post['userId'];
-                    $userQuery = "SELECT * FROM user JOIN courses USING (user_id) WHERE user_id = $userId";
+                    $userId = $_POST['userId'];
+                    
+                    $userQuery = "SELECT * FROM user JOIN courses USING (user_id) WHERE user_id = '$userId'";
                     $userResult = $connect->query($userQuery);
 
                     if($userResult->num_rows > 0)
@@ -187,7 +188,7 @@ ob_start();
                                 <p>Linki<br>
                                 <select size="3" class="col-3">
                     userForm2;
-                    $userQuery1 = "SELECT * FROM user JOIN links USING (user_id) WHERE user_id = $userId";
+                    $userQuery1 = "SELECT * FROM user JOIN links USING (user_id) WHERE user_id = '$userId'";
                     $userResult1 = $connect->query($userQuery1);
 
                     if($userResult1->num_rows > 0)
@@ -202,7 +203,7 @@ ob_start();
                                 <p>Wykształcenie<br>
                                 <select size="3" class="col-3">
                     userForm3;
-                    $userQuery2 = "SELECT * FROM user JOIN education USING (user_id) WHERE user_id = $userId";
+                    $userQuery2 = "SELECT * FROM user JOIN education USING (user_id) WHERE user_id = '$userId'";
                     $userResult2 = $connect->query($userQuery1);
 
                     if($userResult2->num_rows > 0)
@@ -214,7 +215,7 @@ ob_start();
                     }    
                     echo <<<userForm4
                                 </select>
-                                <p><input type="submit" value="Edytuj" name="editBtn"></p>
+                                <p><input type="submit" value="Edytuj" name="editBtnUser"></p>
                             </form>
                         </div>
                     userForm4;
@@ -258,7 +259,7 @@ ob_start();
                         }
 
                     }
-                    if(isset($_POST['editBtn']))
+                    if(isset($_POST['editBtnUser']))
                     {
                         $userId = $_POST['userId'];
                         $userLogin = $_POST['userLogin'];
@@ -275,7 +276,20 @@ ob_start();
                         $knowledgeOfLanguages = $_POST['knowledgeOfLanguages'];
                         $skills = $_POST['skills'];
 
-                        $queryUserEdit = "UPDATE user SET user_login = $userLogin, user_password = $userPassword, firstname = $firstname, surname = $surname, date_of_birth = $dateOfBirth, email = $email, tel_number = $telNumber, profile_picture = '.../userProfilePicture/$profilePicture', place_of_residence = $placeOfResidence, current_position = $currentPosition, description_of_position, = $descriptionOfPosition, profession_summary = $professionSummary, knowledge_of_languages = $knowledgeOfLanguages, skills = $skills";
+                        $queryUserEdit = "UPDATE user SET user_login = $userLogin, 
+                                            user_password = $userPassword, 
+                                            firstname = $firstname, 
+                                            surname = $surname, 
+                                            date_of_birth = $dateOfBirth, 
+                                            email = $email, 
+                                            tel_number = $telNumber, 
+                                            profile_picture = '.../userProfilePicture/$profilePicture',
+                                            place_of_residence = $placeOfResidence, 
+                                            current_position = $currentPosition, 
+                                            description_of_position, = $descriptionOfPosition, 
+                                            profession_summary = $professionSummary, 
+                                            knowledge_of_languages = $knowledgeOfLanguages, 
+                                            skills = $skills WHERE user_id = '$userId'";
                         $connect->query($queryUserEdit);
                     }
                 }
@@ -308,7 +322,7 @@ ob_start();
                                 <p>Ulica <input type="text" value="$row->street" name="street" required></p>
                                 <p>Numer budynku <input type="number" value="$row->street_number" name="streetNumber" required></p>
                                 <p>Info <input type="text" value="$row->info" name="info" required></p>
-                                <p><input type="submit" value="Edytuj" name="editBtn"></p>
+                                <p><input type="submit" value="Edytuj" name="editBtnCompany"></p>
                             </form>
                         </div>
                     companyForm;
@@ -326,7 +340,7 @@ ob_start();
                     passwordForm;
 
                 }
-                if(isset($_POST['editBtn']))
+                if(isset($_POST['editBtnCompany']))
                 {
                     $companyId = $_POST['companyId'];
                     $companyName = $_POST['companyName'];
@@ -336,8 +350,16 @@ ob_start();
                     $streetNumber = $_POST['streetNumber'];
                     $info = $_POST['info'];
 
-                    $queryInfo = "UPDATE company SET company_name = '$companyName', company_login = '$companyLogin', city = '$city', street = '$street', street_number = '$streetNumber', info = '$info' WHERE company_id = $companyId";
+                    $queryInfo = "UPDATE company SET company_name = '$companyName', 
+                                                    company_login = '$companyLogin', 
+                                                    city = '$city', 
+                                                    street = '$street', 
+                                                    street_number = '$streetNumber', 
+                                                    info = '$info' 
+                                                    WHERE company_id = $companyId";
+                    echo $queryInfo;
                     $connect->query($queryInfo);
+
                 }
                 if(isset($_POST['editPaswwordBtn']) && isset($_POST['oldPassword']) && isset($_POST['newPassword']) && isset($_POST['repeatNewPassword']))
                 {
