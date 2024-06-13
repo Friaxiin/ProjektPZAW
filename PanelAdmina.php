@@ -1,5 +1,6 @@
 <?php
 echo "KURWAAAAAAAAAAAA";
+echo "MOgus";
 @include 'connect.php';
 session_start();
 ob_start();
