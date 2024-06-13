@@ -122,7 +122,7 @@ session_start();
                                         <div class="col-2"></div>
                                     card;
                                 }
-                           // }
+                            }
                         ?>
                     </div>
                 </section>
