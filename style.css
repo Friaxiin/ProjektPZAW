@@ -1,0 +1,55 @@
+body{
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+.height {
+    height: 916px;
+}
+.nav > header, .nav > nav{
+    background-color: aqua;
+    height: 100%;
+}
+.nav > nav {
+    text-align: center;
+    letter-spacing: 20px;
+    font-size: 30px;
+}
+.height10 {
+    height: 10vh;
+}
+main {
+    background-color:bisque;
+    height: 80%;
+}
+main > section{
+    margin: 10px;
+    background-color: aquamarine;
+    height: 20%;
+}
+main > .main {
+    height: 50%;
+    margin: 20px;
+    background-color: cornflowerblue;
+}
+div > header, div > nav {
+    float: left;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a :hover {
+    color: white;
+}
+.footer {
+    position: absolute;
+    width: 100%;
+    background-color: green;
+}
+img {
+    width: 100px;
+}
+/* Dropdown menu */
+.userBtn {
+    cursor: pointer;
+}
