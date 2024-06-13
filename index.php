@@ -1,7 +1,5 @@
 <?php
-@include 'connect.php';
 session_start();
-echo $_SESSION['account_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +9,13 @@ echo $_SESSION['account_type'];
     <title>Strona główna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php
+        //error_reporting(0);
+
+    ?>
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
@@ -26,36 +28,12 @@ echo $_SESSION['account_type'];
                     <i class='bx bx-user-circle userBtn' id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></i>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a href="ProfilUzytkownika.php"><button class="dropdown-item" type="button">Mój profil</button></li>
-                        <?php
-                            if(isset($_SESSION['account_type']))
-                            {
-                                ?>
-                                    <li><a href="logout.php"><button class="dropdown-item" type="button">Wyloguj się</button></li>
-                                <?php
-                            }
-                            else
-                            {
-                                ?>
-                                    <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
-                                <?php
-                            }
-                        ?>
+                        <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
                     </ul>
 
                     <a href="Wyszukiwarka.php"><i class='bx bx-search-alt-2'></i></a>
                     <a href="ProfilePracodawcow.php"><i class='bx bx-briefcase-alt-2'></i></a>
-
-                    <?php
-                        if(isset($_SESSION['account_type']))
-                        {
-                            if($_SESSION['account_type'] == "admin")
-                            {
-                                ?>                    
-                                    <a href="PanelAdmina.php"><i class='bx bx-cog'></i></a>
-                                <?php
-                            }
-                        }
-                    ?>
+                
                 </div>
             </nav>
         </div>
@@ -129,25 +107,22 @@ echo $_SESSION['account_type'];
                                 $query = "SELECT * FROM `applications` JOIN job_offer ON (applications.job_offer_id = job_offer.offer_id)  WHERE user_id = $userId ORDER BY application_date DESC LIMIT 3";
                                 echo $query;
                                 $result = $connect->query($query);
-                                
-                                if($result->num_rows > 0)
+    
+                                while($row = $result->fetch_object())
                                 {
-                                    while($row = $result->fetch_object())
-                                    {
-                                        echo <<< card
-                                            <div class="card col-2" style="height:100%">
-                                                <div class="card-body">
-                                                <h5 class="card-title">$row->offer_name</h5>
-                                                <p class="card-text">$row->job_name</p>
-                                                <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
-                                                </div>
+                                    echo <<< card
+                                        <div class="card col-2" style="height:100%">
+                                            <div class="card-body">
+                                            <h5 class="card-title">$row->offer_name</h5>
+                                            <p class="card-text">$row->job_name</p>
+                                            <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
                                             </div>
-        
-                                            <div class="col-2"></div>
-                                        card;
-                                    }
+                                        </div>
+    
+                                        <div class="col-2"></div>
+                                    card;
                                 }
-                            }
+                           // }
                         ?>
                     </div>
                 </section>
