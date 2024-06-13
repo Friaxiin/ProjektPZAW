@@ -1,6 +1,4 @@
 <?php
-echo "KURWAAAAAAAAAAAA";
-echo "MOgus";
 @include 'connect.php';
 session_start();
 ob_start();
@@ -10,7 +8,7 @@ ob_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona główna</title>
+    <title>CareerHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
@@ -19,8 +17,8 @@ ob_start();
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
-                <a href="index.php"><img src="" alt="logo"></a>
-                <a href="index.php">Nazwa serwisu</a>
+                <a href="index.php"><img src="logo.png" alt="logo" style="height:100px"></a>
+                <a href="index.php" style="font-size: 24px; font-weight:bold">CareerHub</a>
             </header>
             <nav class="col-5">
                 <div class="dropdown">
@@ -165,11 +163,11 @@ ob_start();
                                 <p>Miejsce zamieszkania <input type="text" value="$row->place_of_residence" name="placeOfResidence" required></p>
                                 <p>Obecne stanowisko <input type="text" value="$row->current_position" name="currentPosition" required></p>
                                 <p>Opis stanowiska <input type="text" value="$row->description_of_position" name="descriptionOfPosition" required></p>
-                                <p>Podsumowanie zawodowe<input type="text" value="$row->profession_summary" name="professionSummary" required></p>
+                                <p>Podsumowanie zawodowe <input type="text" value="$row->profession_summary" name="professionSummary" required></p>
                                 <p>Znajomość języków <input type="text" value="$row->knowledge_of_languages" name="knowledgeOfLanguages" required></p>
                                 <p>Umiejętności <input type="text" value="$row->skills" name="skills" required></p>
                                 <p>Certyfikaty<br>
-                                <select size="2" class="col-3">
+                                <select size="3" class="col-3">
                     userForm;
                     $userId = $_POST['userId'];
                     
@@ -422,7 +420,7 @@ ob_start();
                                 <p>Certyfikaty<br>
                                 <select size="2" class="col-3">
                     userForm;
-                    $userId = $post['userId'];
+                    $userId = $_POST['userId'];
                 }
             ?>
         </main>
