@@ -1,4 +1,5 @@
 <?php
+@include "connect.php";
 session_start();
 ?>
 <!DOCTYPE html>
@@ -15,10 +16,6 @@ session_start();
     <?php
         //error_reporting(0);
         $connect = new mysqli("localhost", "root", "", "4tp_1-projektphp");
-
-        if ($connect->connect_error) {
-            die("Connection failed: " . $connect->connect_error);
-        }
         /*
         $getdata = http_build_query(
             array(

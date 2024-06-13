@@ -1,4 +1,5 @@
 <?php
+    @include "connect.php";
     session_start();
     ob_start();
 ?>
@@ -15,11 +16,6 @@
 <body>
     <?php
         //error_reporting(0);
-        $connect = new mysqli("localhost", "root", "", "4tp_1-projektphp");
-
-        if ($connect->connect_error) {
-            die("Connection failed: " . $connect->connect_error);
-        }
     ?>
     <div class="container-fluid height">
         <div class="row height10 nav">
