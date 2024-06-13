@@ -279,7 +279,7 @@
                                             <hr class="my-4">
                                             <p>$row->work_hours_min do $row->work_hours_max</p>
                                             <p class="lead">
-                                                <a class="btn btn-primary btn-lg" href="Oferta.php?" role="button">Odwiedz strone ogłoszenia</a>
+                                                <a class="btn btn-primary btn-lg" href="http://localhost/ProjektPZAW/Oferta.php?id=8" role="button">Odwiedz strone ogłoszenia</a>
                                             </p>
                                         </div>
                                     data;
