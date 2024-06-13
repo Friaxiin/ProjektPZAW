@@ -1,6 +1,4 @@
 <?php
-echo "KURWAAAAAAAAAAAA";
-echo "MOgus";
 @include 'connect.php';
 session_start();
 ob_start();
@@ -19,8 +17,8 @@ ob_start();
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
-                <a href="index.php"><img src="" alt="logo"></a>
-                <a href="index.php">Nazwa serwisu</a>
+                <a href="index.php"><img src="logo.png" alt="logo" style="height:100px"></a>
+                <a href="index.php" style="font-size: 24px; font-weight:bold">CareerHub</a>
             </header>
             <nav class="col-5">
                 <div class="dropdown">
@@ -165,13 +163,13 @@ ob_start();
                                 <p>Miejsce zamieszkania <input type="text" value="$row->place_of_residence" name="placeOfResidence" required></p>
                                 <p>Obecne stanowisko <input type="text" value="$row->current_position" name="currentPosition" required></p>
                                 <p>Opis stanowiska <input type="text" value="$row->description_of_position" name="descriptionOfPosition" required></p>
-                                <p>Podsumowanie zawodowe<input type="text" value="$row->profession_summary" name="professionSummary" required></p>
+                                <p>Podsumowanie zawodowe <input type="text" value="$row->profession_summary" name="professionSummary" required></p>
                                 <p>Znajomość języków <input type="text" value="$row->knowledge_of_languages" name="knowledgeOfLanguages" required></p>
                                 <p>Umiejętności <input type="text" value="$row->skills" name="skills" required></p>
                                 <p>Certyfikaty<br>
-                                <select size="2" class="col-3">
+                                <select size="3" class="col-3">
                     userForm;
-                    $userId = $post['userId'];
+                    $userId = $_POST['userId'];
                     $userQuery = "SELECT * FROM user JOIN courses USING (user_id) WHERE user_id = $userId";
                     $userResult = $connect->query($userQuery);
 
@@ -400,7 +398,7 @@ ob_start();
                                 <p>Certyfikaty<br>
                                 <select size="2" class="col-3">
                     userForm;
-                    $userId = $post['userId'];
+                    $userId = $_POST['userId'];
                 }
             ?>
         </main>

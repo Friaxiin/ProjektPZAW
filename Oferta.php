@@ -27,8 +27,8 @@ session_start();
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
-                <a href="index.php"><img src="" alt="logo"></a>
-                <a href="index.php">Nazwa serwisu</a>
+                <a href="index.php"><img src="logo.png" alt="logo" style="height:100px"></a>
+                <a href="index.php" style="font-size: 24px; font-weight:bold">CareerHub</a>
             </header>
             <nav class="col-5">
                 <div class="dropdown">
