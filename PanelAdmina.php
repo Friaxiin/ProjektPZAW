@@ -1,4 +1,5 @@
 <?php
+echo "KURWAAAAAAAAAAAA";
 @include 'connect.php';
 session_start();
 ob_start();
