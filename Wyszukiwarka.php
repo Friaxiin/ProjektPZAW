@@ -263,7 +263,7 @@
 
                             if(!empty($_POST['employmentDimension'])){
                                 $employmentDimension = $_POST['employmentDimension'];
-                                $query .= " AND job_level = '$jobLevel'";
+                                $query .= " AND job_level = '$employmentDimension'";
                             }
 
 
