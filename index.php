@@ -1,6 +1,7 @@
 <?php
 @include 'connect.php';
 session_start();
+echo $_SESSION['account_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,13 +11,9 @@ session_start();
     <title>Strona główna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 <body>
-    <?php
-        //error_reporting(0);
-
-    ?>
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
@@ -29,16 +26,40 @@ session_start();
                     <i class='bx bx-user-circle userBtn' id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></i>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a href="ProfilUzytkownika.php"><button class="dropdown-item" type="button">Mój profil</button></li>
-                        <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
+                        <?php
+                            if(isset($_SESSION['account_type']))
+                            {
+                                ?>
+                                    <li><a href="logout.php"><button class="dropdown-item" type="button">Wyloguj się</button></li>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                    <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
+                                <?php
+                            }
+                        ?>
                     </ul>
 
                     <a href="Wyszukiwarka.php"><i class='bx bx-search-alt-2'></i></a>
                     <a href="ProfilePracodawcow.php"><i class='bx bx-briefcase-alt-2'></i></a>
-                
+
+                    <?php
+                        if(isset($_SESSION['account_type']))
+                        {
+                            if($_SESSION['account_type'] == "admin")
+                            {
+                                ?>                    
+                                    <a href="PanelAdmina.php"><i class='bx bx-cog'></i></a>
+                                <?php
+                            }
+                        }
+                    ?>
                 </div>
             </nav>
         </div>
-        
+
         <div class="row">
             <main>
             <section class="" style="padding:15px">
@@ -60,7 +81,6 @@ session_start();
                                         <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
                                         </div>
                                     </div>
-
                                     <div class="col-2"></div>
                                 card;
                             }
@@ -87,7 +107,6 @@ session_start();
                                         <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
                                         </div>
                                     </div>
-
                                     <div class="col-2"></div>
                                 card;
                             }
@@ -105,23 +124,26 @@ session_start();
                             if(isset($_SESSION['user_id']))
                             {
                                 $userId = $_SESSION['user_id'];
-                                $query = "SELECT * FROM `applications` JOIN job_offer ON (applications.job_offer_id = job_offer.offer_id)  WHERE user_id = $userId ORDER BY application_date DESC LIMIT 3";
+                                $query = "SELECT * FROM `applications` JOIN job_offer ON job_offer_id = job_offer.offer_id  WHERE user_id = $userId ORDER BY application_date DESC LIMIT 3";
                                 echo $query;
                                 $result = $connect->query($query);
-    
-                                while($row = $result->fetch_object())
+
+                                if($result->num_rows > 0)
                                 {
-                                    echo <<< card
-                                        <div class="card col-2" style="height:100%">
-                                            <div class="card-body">
-                                            <h5 class="card-title">$row->offer_name</h5>
-                                            <p class="card-text">$row->job_name</p>
-                                            <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
+                                    while($row = $result->fetch_object())
+                                    {
+                                        echo <<< card
+                                            <div class="card col-2" style="height:100%">
+                                                <div class="card-body">
+                                                <h5 class="card-title">$row->offer_name</h5>
+                                                <p class="card-text">$row->job_name</p>
+                                                <a href="Oferta.php?id=$row->offer_id" class="card-link">Przejdź do oferty</a>
+                                                </div>
                                             </div>
-                                        </div>
-    
-                                        <div class="col-2"></div>
-                                    card;
+        
+                                            <div class="col-2"></div>
+                                        card;
+                                    }
                                 }
                             }
                         ?>
@@ -129,7 +151,7 @@ session_start();
                 </section>
             </main>
         </div>
-            
+
         <div class="row footer">
             <footer>
                 <div class="col-8">

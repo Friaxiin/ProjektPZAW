@@ -1,7 +1,7 @@
 <?php
-    @include "connect.php";
-    session_start();
-    ob_start();
+@include 'connect.php';
+session_start();
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +11,9 @@
     <title>Strona główna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 <body>
-    <?php
-        //error_reporting(0);
-    ?>
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
@@ -29,12 +26,36 @@
                     <i class='bx bx-user-circle userBtn' id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></i>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a href="ProfilUzytkownika.php"><button class="dropdown-item" type="button">Mój profil</button></li>
-                        <li><a href="#"><button class="dropdown-item" type="button">Zaloguj się</button></li>
+                        <?php
+                            if(isset($_SESSION['account_type']))
+                            {
+                                ?>
+                                    <li><a href="logout.php"><button class="dropdown-item" type="button">Wyloguj się</button></li>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                    <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
+                                <?php
+                            }
+                        ?>
                     </ul>
 
                     <a href="Wyszukiwarka.php"><i class='bx bx-search-alt-2'></i></a>
                     <a href="ProfilePracodawcow.php"><i class='bx bx-briefcase-alt-2'></i></a>
-                
+
+                    <?php
+                        if(isset($_SESSION['account_type']))
+                        {
+                            if($_SESSION['account_type'] == "admin")
+                            {
+                                ?>                    
+                                    <a href="PanelAdmina.php"><i class='bx bx-cog'></i></a>
+                                <?php
+                            }
+                        }
+                    ?>
                 </div>
             </nav>
         </div>
@@ -86,8 +107,8 @@
                 <div class="col-6">
                     <form action="" method="POST">
                         <input type="text" placeholder="Login" name="login">
-                        <input type="password" placeholder="Hasło" name="password" id="password">
-                        
+                        <input type="password" placeholder="Hasło" name="password">
+
                         <input type="submit" value="Zaloguj">
                     </form>
                     <a href="Rejestracja.php"><p>Nie masz konta? Zarejestruj się</p></a>
@@ -109,16 +130,18 @@
                             {
                                 if($row->account_type == 'admin')
                                 {
-                                    $_SESSION['admin_login'] = $login;
-                                    $_SESSION['account_type'] = 'admin';
+                                    $_SESSION['user_login'] = $login;
+                                    $_SESSION['account_type'] = 'admin';  
+                                    $_SESSION['user_id'] = $row->user_id;
                                 }
                                 if($row->account_type == 'user')
                                 {
                                     $_SESSION['user_login'] = $login;
-                                    $_SESSION['account_type'] = 'user';
+                                    $_SESSION['account_type'] = 'user';  
+                                    $_SESSION['user_id'] = $row->user_id;                        
                                 }
                                 header("Location: index.php");
-                            }
+                            }  
                         }
                         else
                         {
@@ -127,13 +150,18 @@
                     }
                 ?>
             </div>
-            
+
         </main>
-    
-    
+
+
         <footer>
             stopka
         </footer>
+
+        <?php
+            ob_end_flush();
+            $connect->close();
+        ?>
     </div>
 
     <script src="app.js"></script>

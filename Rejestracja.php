@@ -1,6 +1,6 @@
 <?php
+@include 'connect.php';
 session_start();
-@include "connect.php";
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -11,17 +11,9 @@ ob_start();
     <title>Strona główna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 <body>
-    <?php
-        //error_reporting(0);
-        $connect = new mysqli("localhost", "root", "", "4tp_1-projektphp");
-
-        if ($connect->connect_error) {
-            die("Connection failed: " . $connect->connect_error);
-        }
-    ?>
     <div class="container-fluid height">
         <div class="row height10 nav">
             <header class="col-7">
@@ -34,12 +26,12 @@ ob_start();
                     <i class='bx bx-user-circle userBtn' id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></i>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a href="ProfilUzytkownika.php"><button class="dropdown-item" type="button">Mój profil</button></li>
-                        <li><a href="#"><button class="dropdown-item" type="button">Zaloguj się</button></li>
+                        <li><a href="Login.php"><button class="dropdown-item" type="button">Zaloguj się</button></li>
                     </ul>
 
                     <a href="Wyszukiwarka.php"><i class='bx bx-search-alt-2'></i></a>
                     <a href="ProfilePracodawcow.php"><i class='bx bx-briefcase-alt-2'></i></a>
-                
+
                 </div>
             </nav>
         </div>
@@ -99,7 +91,7 @@ ob_start();
                         <input type="" placeholder="Email" name="email">
                         <input type="" placeholder="Numer telefonu" name="telNumber">
                         <input type="" placeholder="Miejsce zamieszkania" name="placeOfResidence">
-                        
+
                         <input type="submit" name="rejestruj" value="Zarejestruj">
                     </form>
                 </div>
@@ -116,6 +108,8 @@ ob_start();
                         $telNumber = mysqli_real_escape_string($connect, $_POST["telNumber"]);
                         $placeOfResidence = mysqli_real_escape_string($connect, $_POST["placeOfResidence"]);
 
+                        $defaultImg = "userProfilePictures/default.jpg";
+
                         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
                         $duplicate = mysqli_query($connect, "SELECT * FROM user WHERE email = '$email' AND user_login = '$login'");
@@ -128,17 +122,9 @@ ob_start();
                         {
                             if(!empty($login) || !empty($password) || !empty($firstName) || !empty($surname) || !empty($dateOfBirth) || !empty($email) || !empty($telNumber) || !empty($placeOfResidence))
                             {
-                                $defaultImg = "../userProfileImages/default.jpg";
-                                
-                                $query = "INSERT INTO user (user_login, user_password, firstname, surname, date_of_birth, email, tel_number, profile_picture, place_of_residence, current_position, description_of_position, profession_summary, knowledge_of_languages, skills, courses_certificates, links, account_type) 
-                                                    VALUES ('$login', '$passwordHash', '$firstName', '$surname', '$dateOfBirth', '$email', '$telNumber', '$defaultImg', '$placeOfResidence', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'user')";
-
-                                $connect->query($query);
-                                //echo $query;
-
-                                //$row = mysqli_fetch_array($q);
-                                //print_r($row);
-                                //echo "Rejestracja udana";
+                                $query = "INSERT INTO user (user_login, user_password, firstname, surname, date_of_birth, email, tel_number, profile_picture, place_of_residence, current_position, description_of_position, profession_summary, knowledge_of_languages, skills, account_type) 
+                                                    VALUES ('$login', '$passwordHash', '$firstName', '$surname', '$dateOfBirth', '$email', '$telNumber', '$defaultImg', '$placeOfResidence', NULL, NULL, NULL, NULL, NULL, 'user')";
+                                mysqli_query($connect, $query);
                                 header("Location: Login.php");
                             }
                         }
@@ -146,10 +132,10 @@ ob_start();
                     }
                 ?>
             </div>
-            
+
         </main>
-    
-    
+
+
         <footer>
             stopka
         </footer>
