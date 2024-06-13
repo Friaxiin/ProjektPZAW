@@ -126,7 +126,7 @@ echo $_SESSION['account_type'];
                             if(isset($_SESSION['user_id']))
                             {
                                 $userId = $_SESSION['user_id'];
-                                $query = "SELECT * FROM `applications` JOIN job_offer ON job_offer_id = job_offer.offer_id  WHERE user_id = $userId ORDER BY date DESC LIMIT 3";
+                                $query = "SELECT * FROM `applications` JOIN job_offer ON (applications.job_offer_id = job_offer.offer_id)  WHERE user_id = $userId ORDER BY application_date DESC LIMIT 3";
                                 echo $query;
                                 $result = $connect->query($query);
                                 
