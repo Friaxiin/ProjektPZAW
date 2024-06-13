@@ -100,9 +100,12 @@ session_start();
                     </div>
                     <div class="row">
                         <?php
-                           // if(isset($_SESSION['user_id']))
-                            //{
-                                $query = "SELECT * FROM `applications` JOIN job_offer ON job_offer_id = job_offer.offer_id  WHERE user_id = 1 ORDER BY date DESC";
+                            echo $_SESSION['user_id'];
+                            if(isset($_SESSION['user_id']))
+                            {
+                                $userId = $_SESSION['user_id'];
+                                $query = "SELECT * FROM `applications` JOIN job_offer ON (applications.job_offer_id = job_offer.offer_id)  WHERE user_id = $userId ORDER BY application_date DESC LIMIT 3";
+                                echo $query;
                                 $result = $connect->query($query);
     
                                 while($row = $result->fetch_object())
