@@ -156,52 +156,108 @@ ob_start();
                     <div class="row mt-5">
                         <div class="col-md-6">
                             <h5>Edytuj informacje o użytkowniku</h5>
-                            <form action="PanelAdmina.php" method="POST" enctype="multipart/form-data">
+                            <form action="PanelAdmina.php" method="POST">
                                 <input type="hidden" value="$row->user_id" name="userId">
                                 <div class="mb-3">
                                     <label for="userLogin" class="form-label">Login</label>
-                                    <input type="text" class="form-control" id="userLogin" value="$row->user_login" name="userLogin" required>
+                                    <input type="text" class="form-control" id="userLogin" value="$row->user_login" name="userLogin" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="firstname" class="form-label">Imię</label>
-                                    <input type="text" class="form-control" id="firstname" value="$row->firstname" name="firstname" required>
+                                    <input type="text" class="form-control" id="firstname" value="$row->firstname" name="firstname" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="surname" class="form-label">Nazwisko</label>
-                                    <input type="text" class="form-control" id="surname" value="$row->surname" name="surname" required>
+                                    <input type="text" class="form-control" id="surname" value="$row->surname" name="surname" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="dateOfBirth" class="form-label">Data urodzenia</label>
-                                    <input type="date" class="form-control" id="dateOfBirth" value="$row->date_of_birth" name="dateOfBirth" required>
+                                    <input type="date" class="form-control" id="dateOfBirth" value="$row->date_of_birth" name="dateOfBirth" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" value="$row->email" name="email" required>
+                                    <input type="email" class="form-control" id="email" value="$row->email" name="email" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="telNumber" class="form-label">Numer telefonu</label>
-                                    <input type="text" class="form-control" id="telNumber" value="$row->tel_number" name="telNumber" required>
+                                    <input type="text" class="form-control" id="telNumber" value="$row->tel_number" name="telNumber" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="profilePicture" class="form-label">Zdjęcie profilowe</label>
-                                    <input type="file" class="form-control" id="profilePicture" name="profilePicture" required>
+                                    <input type="file" class="form-control" id="profilePicture" name="profilePicture" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="placeOfResidence" class="form-label">Miejsce zamieszkania</label>
-                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->place_of_residence" name="placeOfResidence" required>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->place_of_residence" name="placeOfResidence" >
+                                </div>
+                                <!-- DO zmiany -->
+                                <div class="mb-3">
+                                    <label for="placeOfResidence" class="form-label">Aktualna pozycja</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->current_position " name="currentPosition" >
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountType" class="form-label">Typ konta</label>
-                                    <select id="accountType" class="form-select" name="accountType" required>
-                                        <option value="user" ${row->account_type == 'user' ? 'selected' : ''}>User</option>
-                                        <option value="admin" ${row->account_type == 'admin' ? 'selected' : ''}>Admin</option>
-                                    </select>
+                                    <label for="placeOfResidence" class="form-label">opis pozycji</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->description_of_position" name="descriptionOfPosition" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="placeOfResidence" class="form-label">Podsumowanie zawodowe</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->profession_summary" name="professionSummary" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="placeOfResidence" class="form-label">Języki</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->knowledge_of_languages" name="knowledgeOfLanguages" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="placeOfResidence" class="form-label">Umejętnosci</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->skills" name="skills" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="placeOfResidence" class="form-label">Permisje administratorskie</label>
+                                    <input type="text" class="form-control" id="placeOfResidence" value="$row->account_type" name="accountType">
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="updateUser">Zaktualizuj dane</button>
                             </form>
                         </div>
                     </div>
                     userForm;
+
+                    echo $userId = $_POST['userId'] ? $_POST['userId'] : null;
+                    echo $userLogin = $_POST['userLogin'] ? $_POST['userLogin'] : null;
+                    echo $firstname = $_POST['firstname'] ? $_POST['firstname'] : null;
+                    echo $surname = $_POST['surname'] ? $_POST['surname'] : null;
+                    echo $dateOfBirth = $_POST['dateOfBirth'] ? $_POST['dateOfBirth'] : null;
+                    echo $email = $_POST['email'] ? $_POST['email'] : null;
+                    echo $telNumber = $_POST['telNumber'] ? $_POST['telNumber'] : null;
+                    echo $placeOfResidence = $_POST['placeOfResidence'] ? $_POST['placeOfResidence'] : null;
+                    echo $currentPosition = $_POST['currentPosition'] ? $_POST['currentPosition'] : null;
+                    echo $descriptionOfPosition = $_POST['descriptionOfPosition'] ? $_POST['descriptionOfPosition'] : null;
+                    echo $professionSummary = $_POST['professionSummary'] ? $_POST['professionSummary'] : null;
+                    echo $knowledgeOfLanguages = $_POST['knowledgeOfLanguages'] ? $_POST['knowledgeOfLanguages'] : null;
+                    echo $skills = $_POST['skills'] ? $_POST['skills'] : null;
+                    echo $accountType = $_POST['accountType'] ? $_POST['accountType'] : null;
+
+                    if(isset($_POST['updateUser'])){
+
+
+                        $query = "UPDATE user 
+                        SET user_login = '$userLogin', 
+                            firstname = '$firstname', 
+                            surname = '$surname', 
+                            date_of_birth = '$dateOfBirth', 
+                            email = '$email', 
+                            tel_number = '$telNumber', 
+                            place_of_residence = '$placeOfResidence', 
+                            current_position = '$currentPosition', 
+                            description_of_position = '$descriptionOfPosition', 
+                            profession_summary = '$professionSummary', 
+                            knowledge_of_languages = '$knowledgeOfLanguages', 
+                            skills = '$skills', 
+                            account_type = '$accountType' 
+                        WHERE user_id = '$userId'";
+
+                        $connect->query($query);
+
+                    }
                 }
                 ////company
                 if(isset($_POST['companyDelete']) && isset($_POST['companySelect']))
