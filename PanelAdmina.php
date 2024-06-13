@@ -124,13 +124,13 @@ ob_start();
                         }
                     ?>
                 </select>
-                
+
                 <input type="submit" value="Usuń ofertę" name="offerDelete">
                 <input type="submit" value="Edytuj ofertę" name="offerEdit">
                 </form>
-                
+
             </section>
-            
+
             <?php 
                 ////user
                 if(isset($_POST['userDelete']) && isset($_POST['userSelect']))
@@ -146,7 +146,7 @@ ob_start();
                     $query = "SELECT * FROM user WHERE user_login = '$value'";
                     $result = $connect->query($query);
                     $row = $result->fetch_object();
-                    
+
                     echo <<< userForm
                     <div class="row">
                         <div class="col-3">
@@ -182,7 +182,6 @@ ob_start();
                     }
                     echo <<< userForm2
                                 </select></p>
-
                                 <p>Linki<br>
                                 <select size="3" class="col-3">
                     userForm2;
@@ -198,7 +197,6 @@ ob_start();
                     }
                     echo <<< userForm3
                                 </select></p>
-
                                 <p>Wykształcenie<br>
                                 <select size="3" class="col-3">
                     userForm3;
@@ -274,7 +272,7 @@ ob_start();
                         $professionSummary = $_POST['professionSummary'];
                         $knowledgeOfLanguages = $_POST['knowledgeOfLanguages'];
                         $skills = $_POST['skills'];
-                        
+
                         $queryUserEdit = "UPDATE user SET user_login = $userLogin, user_password = $userPassword, firstname = $firstname, surname = $surname, date_of_birth = $dateOfBirth, email = $email, tel_number = $telNumber, profile_picture = '.../userProfilePicture/$profilePicture', place_of_residence = $placeOfResidence, current_position = $currentPosition, description_of_position, = $descriptionOfPosition, profession_summary = $professionSummary, knowledge_of_languages = $knowledgeOfLanguages, skills = $skills";
                         $connect->query($queryUserEdit);
                     }
@@ -295,7 +293,7 @@ ob_start();
                     $query = "SELECT * FROM company WHERE company_name = '$value'";
                     $result = $connect->query($query);
                     $row = $result->fetch_object();
-                    
+
                     echo <<< companyForm
                     <div class="row">
                         <div class="col-3">
@@ -324,7 +322,7 @@ ob_start();
                         </div>
                     </div>
                     passwordForm;
-                    
+
                 }
                 if(isset($_POST['editBtn']))
                 {
@@ -377,7 +375,7 @@ ob_start();
                     $query = "SELECT * FROM job_offer WHERE offer_id = '$value'";
                     $result = $connect->query($query);
                     $row = $result->fetch_object();
-                    
+
                     echo <<< userForm
                     <div class="row">
                         <div class="col-3">
